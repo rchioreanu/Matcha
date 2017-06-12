@@ -18,6 +18,10 @@ crossorigin="anonymous"></script>
 session_start();
 if ($_SESSION['status'] === TRUE)
 	header ("Location: welcome.php");
+if ($_GET['user'] == 'registered')
+	echo "<p class = 'error'>This user is already registered. Do you already have an account?</p>";
+if ($_GET['email'] == 'match')
+	echo "<p class = 'error'>The email addresses do not match</p>";
 ?>
 
 <!DOCTYPE html>

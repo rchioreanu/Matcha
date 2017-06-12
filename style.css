@@ -13,3 +13,9 @@
 	 display: block;
 	 margin: 0 auto;
  }
+
+ .error {
+	 text-align: center;
+	 color: red;
+	 font-weight: bold;
+ }

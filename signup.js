@@ -91,3 +91,9 @@ $("#rpsw").change(function () {
 		$("#submit").prop('disabled', false);
 	}
 });
+
+$(function () {
+	$("bdate").datepicker({
+		dateFormat: 'mm/dd/yyy'
+	});
+});
