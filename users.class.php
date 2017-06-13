@@ -42,5 +42,43 @@ class Users
 			return false;
 		}
 	}
+	public function login ($email, $psw)
+	{
+		$hash = hash('whirlpool', $psw);
+		$query = "SELECT * FROM `users` WHERE `email` LIKE '$email' AND `password` LIKE '$hash';";
+		try {
+			foreach ($this->DB->query($query) as $elem)
+			{
+				if ($elem['email']) {
+					return ($elem['active']);
+				}
+			}
+			return (-1);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	public function activateUser($email)
+	{
+		$query = "UPDATE users SET users.active = true WHERE users.email LIKE '$email';";
+		try {
+			$this->DB->query($query);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	public function checkProfile ($email)
+	{
+		$query = "SELECT * FROM `users` WHERE `email` LIKE '$email';";
+		try {
+			foreach ($this->DB->query($query) as $elem)
+				return ($elem['complete']);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 ?>

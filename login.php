@@ -1,4 +1,9 @@
 <link rel='stylesheet' type='text/css' href='style.css'/>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+
 <?php
 	session_start();
 	if ($_SESSION['status'] === TRUE)
@@ -20,7 +25,7 @@
 				echo "<h5 class = 'error'>Error loging in :(</h5>";
 		?>
 		<h1 class = "center">Matcha</h1>
-		<form action = "validate.php" method = "post">
+		<form action = "logging.php" method = "post">
 			<input type = "text" class = "login" name = "username" placeholder = "username/email">
 			<input type = "password" class = "login" name = "password" placeholder = "password">
 			<input id = "button" type = "submit" action = "submit" value = "Log in" class = "login">
