@@ -13,6 +13,7 @@ if ($_SESSION['status'] === TRUE)
 $users = new Users();
 $username = $_POST['username'];
 $password = $_POST['password'];
+$_SESSION['email'] = $username;
 $status = $users->login($username, $password);
 if ($status == 1)
 {
