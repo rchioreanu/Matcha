@@ -19,3 +19,8 @@
 	 color: red;
 	 font-weight: bold;
  }
+
+ .form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}

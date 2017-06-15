@@ -80,5 +80,16 @@ class Users
 			echo $e->getMessage();
 		}
 	}
+	public function getName ($email)
+	{
+		$query = "SELECT * FROM `users` WHERE `email` LIKE '$email';";
+		try {
+			foreach ($this->DB->query($query) as $elem)
+				return array ($elem['First Name'], $elem['Last Name']);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 ?>

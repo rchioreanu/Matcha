@@ -10,7 +10,7 @@ session_start();
 $users = new Users();
 ?>
 <div class="container">
-    <h1>Edit Profile</h1>
+	<?php echo "<h1>" . $_SESSION['fname'] . "'s Profile" . "</h1>"; ?>
   	<hr>
 	<div class="row">
       <!-- left column -->
@@ -18,84 +18,93 @@ $users = new Users();
         <div class="text-center">
           <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
-          
           <input type="file" class="form-control">
         </div>
       </div>
-      
       <!-- edit form column -->
+			<?php
+				var_dump($_SESSION);
+				if (!$_SESSION['active'])
+					echo '
       <div class="col-md-9 personal-info">
         <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <a class="panel-close close" data-dismiss="alert">×</a>
           <i class="fa fa-coffee"></i>
-          This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>
+          Before you can enjoy <strong>Matcha</strong>, you need to set up your profile.
+		</div>';?>
+		<?php if ($_GET['error'] == true)
+				echo "<p class = 'error'>There was an error. Please try again!</p>"; ?>
         <h3>Personal info</h3>
-        
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
+        <form action = "update.php" method = "POST" role = "form" class = "form-horizontal">
+          <div class="form-group required">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane">
+			<input name = "fname" class="form-control" type="text" value="<?php echo $_SESSION['fname']; ?>" required>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Bishop">
+			<input name = "lname" class="form-control" type="text" value="<?php echo $_SESSION['lname']; ?>" required>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Company:</label>
+          <div class="form-group required">
+            <label class="col-lg-3 control-label">Bio :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+              <textarea name = "bio" class="form-control" type="paragraph"  value="" required></textarea>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group required">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="janesemail@gmail.com">
+			<input name = "email" class="form-control" type="text" value="<?php echo $_SESSION['email']; ?>" required>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Time Zone:</label>
+          <div class="form-group required">
+            <label class="col-lg-3 control-label">Gender: </label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select id="user_time_zone" class="form-control">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                <select name = "gender" id="user_gender" class="form-control">
+                  <option value="f">Female</option>
+                  <option value="m">Male</option>
+                  <option value="o">Other</option>
+                  <option value="a">Did you just assume my gender?</option>
+                  <option value="p">Person</option>
                 </select>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Username:</label>
+          <div class="form-group required">
+            <label class="col-lg-3 control-label">Sexual orientation: </label>
+            <div class="col-lg-8">
+              <div class="ui-select">
+                <select name = "orientation" id="user_orientation" class="form-control">
+                  <option value="h">Heterosexual</option>
+                  <option value="o">Homosexual</option>
+                  <option value="b">Bisexual</option>
+                  <option value="f">I just want to fuck, give me anything!</option>
+                  <option value="a">Asexual</option>
+                  <option value="q">Queer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-md-3 control-label">Tags:</label>
             <div class="col-md-8">
-              <input class="form-control" type="text" value="janeuser">
+              <input name = "tags" class="form-control" type="text" value="" required placeholder = "Enter like this: #lorem, #ipsum, #dolor">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input name = "psw" class="form-control" type="password" value="11111122333">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
+              <button type="submit" class="btn btn-primary" >Update</button>
               <span></span>
               <input type="reset" class="btn btn-default" value="Cancel">
             </div>
