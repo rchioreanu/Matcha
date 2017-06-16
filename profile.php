@@ -1,3 +1,7 @@
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
 <link rel = "stylesheet" href = "style.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -8,6 +12,8 @@ require 'users.class.php';
 
 session_start();
 $users = new Users();
+if ($_SESSION['status'] != true)
+	header ("Location: index.php");
 ?>
 <div class="container">
 	<?php echo "<h1>" . $_SESSION['fname'] . "'s Profile" . "</h1>"; ?>
@@ -51,7 +57,7 @@ $users = new Users();
           <div class="form-group required">
             <label class="col-lg-3 control-label">Bio :</label>
             <div class="col-lg-8">
-              <textarea name = "bio" class="form-control" type="paragraph"  value="" required></textarea>
+			<textarea name = "bio" class="form-control" type="paragraph" required><?php echo $users->getBio($_SESSION['email']); ?></textarea>
             </div>
           </div>
           <div class="form-group required">
@@ -64,12 +70,16 @@ $users = new Users();
             <label class="col-lg-3 control-label">Gender: </label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select name = "gender" id="user_gender" class="form-control">
-                  <option value="f">Female</option>
-                  <option value="m">Male</option>
-                  <option value="o">Other</option>
-                  <option value="a">Did you just assume my gender?</option>
-                  <option value="p">Person</option>
+			  <select name = "gender" id="user_gender" class="form-control">
+                  <option id = "f" value="f">Female</option>
+                  <option id = "m" value="m">Male</option>
+                  <option id = "o" value="o">Other</option>
+                  <option id = "a" value="a">Did you just assume my gender?</option>
+                  <option id = "p" value="p">Person</option>
+				<script>
+					var option = "<?php echo $users->getGender($_SESSION['email']); ?>";
+					$("#" + option).attr('selected', 'selected');
+				</script>
                 </select>
               </div>
             </div>
@@ -78,13 +88,17 @@ $users = new Users();
             <label class="col-lg-3 control-label">Sexual orientation: </label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select name = "orientation" id="user_orientation" class="form-control">
-                  <option value="h">Heterosexual</option>
-                  <option value="o">Homosexual</option>
-                  <option value="b">Bisexual</option>
-                  <option value="f">I just want to fuck, give me anything!</option>
-                  <option value="a">Asexual</option>
-                  <option value="q">Queer</option>
+			  <select name = "orientation" id="user_orientation" class="form-control" selected = "a">
+                  <option id = "h" value="h">Heterosexual</option>
+                  <option id = "o" value="o">Homosexual</option>
+                  <option id = "b" value="b">Bisexual</option>
+                  <option id = "e" value="e">I just want to fuck, give me anything!</option>
+                  <option id = "s" value="s">Asexual</option>
+                  <option id = "q" value="q">Queer</option>
+				<script>
+					var option = "<?php echo $users->getOrientation($_SESSION['email']); ?>";
+					$("#" + option).attr('selected', 'selected');
+				</script>
                 </select>
               </div>
             </div>
@@ -92,13 +106,7 @@ $users = new Users();
           <div class="form-group required">
             <label class="col-md-3 control-label">Tags:</label>
             <div class="col-md-8">
-              <input name = "tags" class="form-control" type="text" value="" required placeholder = "Enter like this: #lorem, #ipsum, #dolor">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
-            <div class="col-md-8">
-              <input name = "psw" class="form-control" type="password" value="11111122333">
+			<input name = "tags" class="form-control" type="text" placeholder = "#enter, #like, #this" required value = "<?php echo $users->getTags($_SESSION['email']); ?>">
             </div>
           </div>
           <div class="form-group">
@@ -108,6 +116,7 @@ $users = new Users();
               <span></span>
               <input type="reset" class="btn btn-default" value="Cancel">
             </div>
+			<a href = "logout.php"><button type = "button" class = "btn btn-default pull-right">Log out</button></a>
           </div>
         </form>
       </div>
