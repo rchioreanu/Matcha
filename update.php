@@ -20,11 +20,13 @@ $users->addGender($_SESSION['email'], $_POST['gender']);
 $users->addOrientation($_SESSION['email'], $_POST['orientation']);
 $users->addTags($_SESSION['email'], $_POST['tags']);
 $users->addName($_POST['fname'], $_POST['lname'], $_SESSION['email']);
+$users->completeProfile($_SESSION['email']);
+$_SESSION['active'] = true;
 if ($_SESSION['email'] != $_POST['email'])
 {
 	$users->addEmail($_SESSION['email'], $_POST['email']);
 	session_destroy();
 	header ("Location: index.php");
 }
-header ("Location: profile.php");
+header ("Location: welcome.php");
 ?>

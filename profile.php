@@ -28,11 +28,11 @@ if ($_SESSION['status'] != true)
         </div>
       </div>
       <!-- edit form column -->
+      <div class="col-md-9 personal-info">
 			<?php
 				var_dump($_SESSION);
 				if (!$_SESSION['active'])
 					echo '
-      <div class="col-md-9 personal-info">
         <div class="alert alert-info alert-dismissable">
           <a class="panel-close close" data-dismiss="alert">×</a>
           <i class="fa fa-coffee"></i>

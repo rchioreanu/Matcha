@@ -199,5 +199,15 @@ class Users
 			echo $e->getMessage();
 		}
 	}
+	public function completeProfile ($email)
+	{
+		$query = "UPDATE users SET complete = true WHERE email LIKE '$email';";
+		try {
+			$this->DB->query($query);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 ?>
