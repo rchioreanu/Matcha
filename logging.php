@@ -18,6 +18,7 @@ $status = $users->login($username, $password);
 if ($status == 1)
 {
 	$_SESSION['status'] = true;
+	$_SESSION['uid'] = $users->getUserId($username);
 	header ("Location: welcome.php");
 }
 else if ($status == 0)

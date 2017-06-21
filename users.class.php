@@ -209,5 +209,16 @@ class Users
 			echo $e->getMessage();
 		}
 	}
+	public function getUserId ($email)
+	{
+		$query = "SELECT * FROM users WHERE email LIKE '$email';";
+		try {
+			foreach ($this->DB->query($query) as $elem)
+				return $elem['id'];
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 ?>

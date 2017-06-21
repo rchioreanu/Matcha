@@ -20,11 +20,12 @@ if ($_SESSION['status'] != true)
   	<hr>
 	<div class="row">
       <!-- left column -->
+        <form action = "update.php" method = "POST" role = "form" class = "form-horizontal" id = "profile" enctype = "multipart/form-data">
       <div class="col-md-3">
         <div class="text-center">
           <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
-          <input type="file" class="form-control">
+          <input type="file" class="form-control" name = "profile">
         </div>
       </div>
       <!-- edit form column -->
@@ -41,7 +42,7 @@ if ($_SESSION['status'] != true)
 		<?php if ($_GET['error'] == true)
 				echo "<p class = 'error'>There was an error. Please try again!</p>"; ?>
         <h3>Personal info</h3>
-        <form action = "update.php" method = "POST" role = "form" class = "form-horizontal">
+
           <div class="form-group required">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
@@ -109,6 +110,34 @@ if ($_SESSION['status'] != true)
 			<input name = "tags" class="form-control" type="text" placeholder = "#enter, #like, #this" required value = "<?php echo $users->getTags($_SESSION['email']); ?>">
             </div>
           </div>
+		  <div class="col-md-3">
+			<div class="text-center">
+			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			  <h6>Upload a different photo...</h6>
+			  <input type="file" class="form-control" name = "1">
+			</div>
+		  </div>
+		  <div class="col-md-3">
+			<div class="text-center">
+			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			  <h6>Upload a different photo...</h6>
+			  <input type="file" class="form-control" name = "2">
+			</div>
+		  </div>
+		  <div class="col-md-3">
+			<div class="text-center">
+			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			  <h6>Upload a different photo...</h6>
+			  <input type="file" class="form-control" name = "3">
+			</div>
+		  </div>
+		  <div class="col-md-3">
+			<div class="text-center">
+			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			  <h6>Upload a different photo...</h6>
+			  <input type="file" class="form-control" name = "4">
+			</div>
+		  </div>
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
