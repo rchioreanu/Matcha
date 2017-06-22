@@ -1,4 +1,6 @@
 <?php
+include 'includes.php';
+include 'header.php';
 require 'users.class.php';
 
 session_start();
