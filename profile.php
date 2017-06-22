@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src = "image.js"></script>
 <?php
 require 'users.class.php';
 
@@ -23,15 +24,14 @@ if ($_SESSION['status'] != true)
         <form action = "update.php" method = "POST" role = "form" class = "form-horizontal" id = "profile" enctype = "multipart/form-data">
       <div class="col-md-3">
         <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+		<img src="<?php echo $users->getPhoto($_SESSION['uid'], 'profile'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_profile">
           <h6>Upload a different photo...</h6>
-          <input type="file" class="form-control" name = "profile">
+          <input type="file" class="form-control" name = "profile" id = "input_profile">
         </div>
       </div>
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
 			<?php
-				var_dump($_SESSION);
 				if (!$_SESSION['active'])
 					echo '
         <div class="alert alert-info alert-dismissable">
@@ -112,30 +112,30 @@ if ($_SESSION['status'] != true)
           </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '1'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_1">
 			  <h6>Upload a different photo...</h6>
-			  <input type="file" class="form-control" name = "1">
+			  <input type="file" class="form-control" name = "1" id = "input_1">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '2'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_2">
 			  <h6>Upload a different photo...</h6>
-			  <input type="file" class="form-control" name = "2">
+			  <input type="file" class="form-control" name = "2" id = "input_2">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '3'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_3">
 			  <h6>Upload a different photo...</h6>
-			  <input type="file" class="form-control" name = "3">
+			  <input type="file" class="form-control" name = "3" id = "input_3">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '4'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_4">
 			  <h6>Upload a different photo...</h6>
-			  <input type="file" class="form-control" name = "4">
+			  <input type="file" class="form-control" name = "4" id = "input_4">
 			</div>
 		  </div>
           <div class="form-group">

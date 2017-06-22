@@ -5,6 +5,7 @@ class Users
 	private $DB_USER = "root";
 	private $DB_PASS = "123456";
 	private $DB;
+	private $photo_types = array("profile", "1", "2", "3", "4");
 
 	function __construct ()
 	{
@@ -215,6 +216,36 @@ class Users
 		try {
 			foreach ($this->DB->query($query) as $elem)
 				return $elem['id'];
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	public function addPhoto ($type, $uid, $photoName)
+	{
+		if (!in_array($type, $this->photo_types))
+			return FALSE;
+		$toChange = "image_" . $type;
+		$query = "INSERT INTO images (uid, $toChange) VALUES ('$uid', '$photoName') ON DUPLICATE KEY UPDATE
+			$toChange = '$photoName';";
+		try {
+			$this->DB->query($query);
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
+	public function getPhoto($uid, $type)
+	{
+		$query = "SELECT * FROM images WHERE uid LIKE '$uid';";
+		try {
+			foreach ($this->DB->query($query) as $elem) {
+				if ($elem["image_" . $type])
+					return $elem["image_" . $type];
+				else
+					return "//placehold.it/100";
+			}
+			return "//placehold.it/100";
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
