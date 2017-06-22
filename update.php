@@ -58,15 +58,8 @@ function upload ($name, $filename)
 }
 
 $users = new Users();
-$tmp = explode(",", trim($_POST['tags']));
-foreach ($tmp as $elem)
-{
-	if (!preg_match("/\#\w+/", $elem))
-		$error = "?error=true";
-}
-if ($error)
-	$error .= "&imgerror=" . str_replace(" ", "+", $imgerr);
-if ($error)
+$error .= "&imgerror=" . str_replace(" ", "+", $imgerr);
+if ($imgerror)
 	header ("Location: profile.php" . $error);
 $_SESSION['fname'] = $_POST['fname'];
 $_SESSION['lname'] = $_POST['lname'];

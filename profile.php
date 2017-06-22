@@ -8,6 +8,10 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src = "image.js"></script>
+<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
 <?php
 require 'users.class.php';
 
@@ -105,9 +109,9 @@ if ($_SESSION['status'] != true)
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-md-3 control-label">Tags:</label>
+            <label class="col-md-3 control-label">Interests:</label>
             <div class="col-md-8">
-			<input name = "tags" class="form-control" type="text" placeholder = "#enter, #like, #this" required value = "<?php echo $users->getTags($_SESSION['email']); ?>">
+			<input name = "tags" class="form-control" value = "<?php echo $users->getTags($_SESSION['email']); ?>" type="text" data-role="tagsinput" required >
             </div>
           </div>
 		  <div class="col-md-3">
