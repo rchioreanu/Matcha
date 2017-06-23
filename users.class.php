@@ -34,9 +34,12 @@ class Users
 	public function addUser ($fname, $lname, $bdate, $email, $password)
 	{
 		$hash = hash('whirlpool', $password);
-			$query = "INSERT INTO `users` (`First Name`, `Last Name`, `Birthdate`, `email`, `password`) VALUES('$fname', '$lname', '$bdate', '$email', '$hash');";
+		$query = "INSERT INTO `users` (`First Name`, `Last Name`, `Birthdate`, `email`, `password`) VALUES('$fname', '$lname', '$bdate', '$email', '$hash');";
 		try {
 			$this->DB->query($query);
+			echo $fname .PHP_EOL.$lname.PHP_EOL.$bdate.PHP_EOL.$email.PHP_EOL.$password;
+			echo "OK";
+			return true;
 		}
 		catch (PDOException $e) {
 			echo $e->getMessage();
