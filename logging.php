@@ -26,6 +26,7 @@ else if ($status == 0)
 	$key = rand();
 	$_SESSION['key'] = $key;
 	$_SESSION['email'] = $username;
+	$_SESSION['uid'] = $users->getUserId($username);
 	$content = "Your unique activation code is: " . hash('whirlpool', $key);
 	mail($username, "Activate your account!", $content);
 	echo "<h1 class = 'center'>Enter the verification code we sent you on email:</h1>";
