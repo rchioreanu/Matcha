@@ -7,6 +7,11 @@ session_start();
 $users = new Users();
 if ($_SESSION['status'] != true)
 	header ("Location: index.php");
+if (!isset($_GET['user']))
+	header ("Location: index.php");
+else
+	$user = $_GET['user'];
+$userEmail = $users->getUserById($user)[2];
 include 'header.php';
 ?>
 <div class="container">
@@ -17,7 +22,7 @@ include 'header.php';
         <form action = "update.php" method = "POST" role = "form" class = "form-horizontal" id = "profile" enctype = "multipart/form-data">
       <div class="col-md-3">
         <div class="text-center">
-		<img src="<?php echo $users->getPhoto($_SESSION['uid'], 'profile'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_profile">
+		<img src="<?php echo $users->getPhoto($user, 'profile'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_profile">
         </div>
       </div>
       <!-- edit form column -->
@@ -37,25 +42,19 @@ include 'header.php';
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-			<div class = "form-control"><?php echo $_SESSION['fname']; ?></div>
+			<div class = "form-control"><?php echo $users->getUserById($user)[0]; ?></div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-			<div class = "form-control"><?php echo $_SESSION['lname']; ?></div>
+			<div class = "form-control"><?php echo $users->getUserById($user)[1]; ?></div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Bio :</label>
             <div class="col-lg-8">
-			<textarea name = "bio" class="form-control" type="paragraph" readonly><?php echo $users->getBio($_SESSION['email']); ?></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-			<div class = "form-control"><?php echo $_SESSION['email']; ?></div>
+			<textarea name = "bio" class="form-control" type="paragraph" readonly><?php echo $users->getBio($userEmail); ?></textarea>
             </div>
           </div>
           <div class="form-group">
@@ -64,7 +63,7 @@ include 'header.php';
               <div class="ui-select">
 				<div id = "gender" class = "form-control"></div>
 				<script>
-					var option = "<?php echo $users->getGender($_SESSION['email']); ?>";
+					var option = "<?php echo $users->getGender($userEmail); ?>";
 					if (option == "f")
 						$("#gender").text('Female');
 					else if (option == 'm')
@@ -86,7 +85,7 @@ include 'header.php';
               <div class="ui-select">
 				<div id = "orientation" class = "form-control"></div>
 				<script>
-					var option = "<?php echo $users->getOrientation($_SESSION['email']); ?>";
+					var option = "<?php echo $users->getOrientation($userEmail); ?>";
 					if (option == 'h')
 						$("#orientation").text('Heterosexual');
 					else if (option == 'o')
@@ -107,26 +106,26 @@ include 'header.php';
           <div class="form-group">
             <label class="col-md-3 control-label">Interests:</label>
             <div class="col-md-8">
-			<div class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $users->getTags($_SESSION['email']); ?></div>
+			<div class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $users->getTags($userEmail); ?></div>
           </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '1'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_1">
+			<img src="<?php echo $users->getPhoto($user, '1'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_1">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '2'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_2">
+			<img src="<?php echo $users->getPhoto($user, '2'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_2">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '3'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_3">
+			<img src="<?php echo $users->getPhoto($user, '3'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_3">
 			</div>
 		  </div>
 		  <div class="col-md-3">
 			<div class="text-center">
-			<img src="<?php echo $users->getPhoto($_SESSION['uid'], '4'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_4">
+			<img src="<?php echo $users->getPhoto($user, '4'); ?>" class="avatar img-circle img-responsive" alt="avatar" id = "image_4">
 			</div>
 		  </div>
           <div class="form-group">

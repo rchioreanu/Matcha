@@ -20,7 +20,7 @@ if (!$_SESSION['status'])
 				<ul class="nav navbar-nav">
 					<li><a href="#">Home</a></li>
 					<li><a href="#about">About</a></li>
-					<li><a href="myprofile.php">My profile</a></li>
+					<li><a href="myprofile.php?user=<?php echo $_SESSION['uid']; ?>">My profile</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
 						<ul class="dropdown-menu">
