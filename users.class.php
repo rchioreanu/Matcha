@@ -266,5 +266,52 @@ class Users
 			echo $e->getMessage();
 		}
 	}
+	public function checkCompatibility($haystack, $needle)
+	{
+		$query = "SELECT * FROM users WHERE id LIKE '$haystack';";
+		$query2 = "SELECT * FROM users WHERE id LIKE '$needle';";
+		try {
+			foreach ($this->DB->query($query) as $elem) {
+				$orientation1 = $elem['orientation'];
+				$gender1 = $elem['gender'];
+			}
+			foreach ($this->DB->query($query2) as $elem) {
+				$orientation2 = $elem['orientation'];
+				$gender2 = $elem['gender'];
+			}
+			switch ($orientation1) {
+			case 'h':
+				switch ($gender1) {
+				case 'f':
+					switch ($orientation2) {
+					case 'h':
+						switch ($gender2) {
+						case 'm':
+							return TRUE;
+						default:
+							return FALSE;
+						}
+					}
+				case 'm':
+					switch ($orientation2) {
+					case 'h':
+						switch ($gender2) {
+						case 'f':
+							return TRUE;
+						default:
+							return FALSE;
+						}
+					}
+				default:
+					return FALSE;
+				}
+			default:
+				return FALSE;
+			}
+		}
+		catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 ?>

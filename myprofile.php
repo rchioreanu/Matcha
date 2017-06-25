@@ -11,11 +11,14 @@ if (!isset($_GET['user']))
 	header ("Location: index.php");
 else
 	$user = $_GET['user'];
+if ($user != $_SESSION['uid'])
+	$compatible = $users->checkCompatibility($_SESSION['uid'], $user);
+var_dump($compatible);
 $userEmail = $users->getUserById($user)[2];
 include 'header.php';
 ?>
 <div class="container">
-	<?php echo "<h1>" . $_SESSION['fname'] . "'s Profile" . "</h1>"; ?>
+	<?php echo "<h1>" . $users->getUserById($user)[0] . " " . $users->getUserById($user)[1] . "</h1>"; ?>
   	<hr>
 	<div class="row">
       <!-- left column -->
@@ -39,18 +42,6 @@ include 'header.php';
 				echo "<p class = 'error'>There was an error. Please try again!</p>"; ?>
         <h3>Personal info</h3>
 
-          <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-			<div class = "form-control"><?php echo $users->getUserById($user)[0]; ?></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-			<div class = "form-control"><?php echo $users->getUserById($user)[1]; ?></div>
-            </div>
-          </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Bio :</label>
             <div class="col-lg-8">
