@@ -14,8 +14,12 @@ else
 if ($user != $_SESSION['uid'])
     $compatible = $users->checkCompatibility($_SESSION['uid'], $user);
 else
+{
+    $myProfile = true;
     $compatible = -1;
-var_dump($compatible);
+}
+if (!$compatible)
+    header ("Location: index.php");
 $userEmail = $users->getUserById($user)[2];
 include 'header.php';
 ?>
@@ -42,6 +46,12 @@ if (!$_SESSION['active'])
         </div>';?>
         <?php if ($_GET['error'] == true)
                 echo "<p class = 'error'>There was an error. Please try again!</p>"; ?>
+        <?php
+        if ($myProfile)
+            echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
+        else
+            echo "<a href = 'like.php'><button type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
+        ?>
         <h3>Personal info</h3>
 
           <div class="form-group">
@@ -81,16 +91,12 @@ if (!$_SESSION['active'])
                     var option = "<?php echo $users->getOrientation($userEmail); ?>";
                     if (option == 'h')
                         $("#orientation").text('Heterosexual');
-                    else if (option == 'o')
+                    else if (option == 'x')
                         $("#orientation").text('Homosexual');
                     else if (option == 'b')
                         $("$orientation").text('Bisexual');
                     else if (option == 'e')
                         $("#orientation").text('I just want to fuck, give me anything!');
-                    else if (option == 's')
-                        $("#orientation").text('Asexual');
-                    else if (option == 'q')
-                        $("#orientation").text('Queer');
                 </script>
                 </select>
               </div>
@@ -124,6 +130,10 @@ if (!$_SESSION['active'])
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
           </div>
+        <?php
+        if (!$myProfile)
+            echo "<a href = 'block.php'><button type = 'button' class = 'btn btn-default pull-right'>Block the user</button></a>";
+        ?>
         </form>
       </div>
   </div>

@@ -84,11 +84,9 @@ if (!$_SESSION['active'])
               <div class="ui-select">
               <select name = "orientation" id="user_orientation" class="form-control" selected = "a">
                   <option id = "h" value="h">Heterosexual</option>
-                  <option id = "o" value="o">Homosexual</option>
+                  <option id = "x" value="x">Homosexual</option>
                   <option id = "b" value="b">Bisexual</option>
                   <option id = "e" value="e">I just want to fuck, give me anything!</option>
-                  <option id = "s" value="s">Asexual</option>
-                  <option id = "q" value="q">Queer</option>
                 <script>
                     var option = "<?php echo $users->getOrientation($_SESSION['email']); ?>";
                     $("#" + option).attr('selected', 'selected');

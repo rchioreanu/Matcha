@@ -281,6 +281,10 @@ class Users
             switch ($orientation1) {
             case 'h':
                 switch ($gender1) {
+                case 'o':
+                case 'a':
+                case 'p':
+                    return TRUE;
                 case 'f':
                     switch ($orientation2) {
                     case 'h':
@@ -290,6 +294,8 @@ class Users
                         default:
                             return FALSE;
                         }
+                    default:
+                        return FALSE;
                     }
                 case 'm':
                     switch ($orientation2) {
@@ -304,8 +310,41 @@ class Users
                 default:
                     return FALSE;
                 }
+            case 'x':
+                switch ($gender1) {
+                case 'o':
+                case 'a':
+                case 'p':
+                    return TRUE;
+                case 'f':
+                    switch ($orientation2) {
+                    case 'x':
+                        switch ($gender2) {
+                        case 'f':
+                            return TRUE;
+                        default:
+                            return FALSE;
+                        }
+                    default:
+                        return FALSE;
+                    }
+                case 'm':
+                    switch ($orientation2) {
+                    case 'x':
+                        switch ($gender2) {
+                        case 'm':
+                            return TRUE;
+                        default:
+                            return FALSE;
+                        }
+                    default:
+                        return FALSE;
+                    }
+                default:
+                    return FALSE;
+                }
             default:
-                return FALSE;
+                return TRUE;
             }
         }
         catch (PDOException $e) {
