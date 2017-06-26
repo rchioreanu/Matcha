@@ -17,41 +17,41 @@ crossorigin="anonymous"></script>
 <?php
 session_start();
 if ($_SESSION['status'] === TRUE)
-	header ("Location: welcome.php");
+    header ("Location: welcome.php");
 if ($_GET['user'] == 'registered')
-	echo "<p class = 'error'>This user is already registered. <a href = 'login.php'>Sign in here!</a></p>";
+    echo "<p class = 'error'>This user is already registered. <a href = 'login.php'>Sign in here!</a></p>";
 if ($_GET['email'] == 'match')
-	echo "<p class = 'error'>The email addresses do not match</p>";
+    echo "<p class = 'error'>The email addresses do not match</p>";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Matcha</title>
+    <title>Matcha</title>
 </head>
 <body>
-	<h1 class = "center">Sign up!</h1>
-	<form action = "validate.php" method = "post">
-		<p class = "signup">First name:</p>
-		<input type = "text" class = "login" name = "fname" required>
-		<p class = "signup">Last name:</p>
-		<input type = "text" class = "login" name = "lname" required>
-		<p class = "signup">Birthdate:</p>
-		<input type = "date" class = "login" name = "bdate" id = "bdate" required>
-		<div id = "alert" class = "signup"></div>
-		<p class = "signup">Email: </p>
-		<input type = "text" class = "login" name = "email" id = "email" required>
-		<div id = "emailAlert" class = "signup"></div>
-		<p class = "signup">Repeat email: </p>
-		<input type = "text" class = "login" name = "remail" id = "remail" required>
-		<div id = "remailAlert" class = "signup"></div>
-		<p class = "signup">Password: </p>
-		<input type = "password" class = "login" name = "psw" id = "psw" required>
-		<div id = "pswAlert" class = "signup"></div>
-		<p class = "signup">Repeat password: </p>
-		<input type = "password" class = "login" name = "rpsw" id = "rpsw" required>
-		<div id = "rpswAlert" class = "signup"></div>
-		<input type = "submit" class = "login" id = "submit">
-	</form>
-	<script src = "signup.js"></script>
+    <h1 class = "center">Sign up!</h1>
+    <form action = "validate.php" method = "post">
+        <p class = "signup">First name:</p>
+        <input type = "text" class = "login" name = "fname" required>
+        <p class = "signup">Last name:</p>
+        <input type = "text" class = "login" name = "lname" required>
+        <p class = "signup">Birthdate:</p>
+        <input type = "date" class = "login" name = "bdate" id = "bdate" required>
+        <div id = "alert" class = "signup"></div>
+        <p class = "signup">Email: </p>
+        <input type = "text" class = "login" name = "email" id = "email" required>
+        <div id = "emailAlert" class = "signup"></div>
+        <p class = "signup">Repeat email: </p>
+        <input type = "text" class = "login" name = "remail" id = "remail" required>
+        <div id = "remailAlert" class = "signup"></div>
+        <p class = "signup">Password: </p>
+        <input type = "password" class = "login" name = "psw" id = "psw" required>
+        <div id = "pswAlert" class = "signup"></div>
+        <p class = "signup">Repeat password: </p>
+        <input type = "password" class = "login" name = "rpsw" id = "rpsw" required>
+        <div id = "rpswAlert" class = "signup"></div>
+        <input type = "submit" class = "login" id = "submit">
+    </form>
+    <script src = "signup.js"></script>
 </body>

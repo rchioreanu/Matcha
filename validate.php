@@ -15,46 +15,46 @@ $get = "?";
 $error = false;
 if ($email != $remail)
 {
-	$error = true;
-	$get .= "email=match&";
+    $error = true;
+    $get .= "email=match&";
 }
 
 if ($psw != $rpsw)
 {
-	$error = true;
-	$get .= "psw=match&";
+    $error = true;
+    $get .= "psw=match&";
 }
 
 if (!$val->checkEmail($email))
 {
-	$error = true;
-	$get .= "email=false&";
+    $error = true;
+    $get .= "email=false&";
 }
 
 if (!$val->checkPassword($psw))
 {
-	$error = true;
-	$get .= "psw=false&";
+    $error = true;
+    $get .= "psw=false&";
 }
 
 if (!$val->checkBirthDate($bdate))
 {
-	$error = true;
-	$get .= "bdate=false&";
+    $error = true;
+    $get .= "bdate=false&";
 }
 
 if ($users->checkUser($email))
 {
-	$error = true;
-	$get .= "user=registered";
+    $error = true;
+    $get .= "user=registered";
 }
 
 if ($error === true)
-	header ("Location: signup.php$get");
+    header ("Location: signup.php$get");
 else
 {
-	$status = $users->addUser($fname, $lname, $bdate, $email, $psw);
-	if ($status)
-		header ("Location: index.php?signup=true");
+    $status = $users->addUser($fname, $lname, $bdate, $email, $psw);
+    if ($status)
+        header ("Location: index.php?signup=true");
 }
 ?>

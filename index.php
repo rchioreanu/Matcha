@@ -2,9 +2,9 @@
 session_start();
 
 if (!$_SESSION['status'])
-	header ("Location: login.php");
+    header ("Location: login.php");
 
 else if ($_SESSION['status'] === TRUE)
-	header ("Location: welcome.php");
+    header ("Location: welcome.php");
 
 ?>
