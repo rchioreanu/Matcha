@@ -4,7 +4,7 @@ class Users
     private $DB_DSN = "mysql:host=localhost;dbname=db_matcha";
     private $DB_USER = "root";
     private $DB_PASS = "123456";
-    private $DB;
+    protected $DB;
     private $photo_types = array("profile", "1", "2", "3", "4");
 
     function __construct ()
