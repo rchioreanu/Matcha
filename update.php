@@ -87,5 +87,5 @@ if ($_SESSION['email'] != $_POST['email'])
     session_destroy();
     header ("Location: index.php");
 }
-header ("Location: profile.php");
+header ("Location: myprofile.php");
 ?>

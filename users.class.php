@@ -351,5 +351,17 @@ class Users
             echo $e->getMessage();
         }
     }
+    public function isActive ($uid)
+    {
+        $query = "SELECT active FROM users WHERE id LIKE '$uid';";
+        try {
+            foreach ($this->DB->query($query) as $elem) {
+                return $elem['active'];
+            }
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 ?>

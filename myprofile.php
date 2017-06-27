@@ -8,7 +8,7 @@ $users = new Users();
 if ($_SESSION['status'] != true)
     header ("Location: index.php");
 if (!isset($_GET['user']))
-    header ("Location: index.php");
+    $user = $_SESSION['uid'];
 else
     $user = $_GET['user'];
 if ($user != $_SESSION['uid'])
@@ -37,21 +37,11 @@ include 'header.php';
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
 <?php
-if (!$_SESSION['active'])
-    echo '
-        <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a>
-          <i class="fa fa-coffee"></i>
-          Before you can enjoy <strong>Matcha</strong>, you need to set up your profile.
-        </div>';?>
-        <?php if ($_GET['error'] == true)
-                echo "<p class = 'error'>There was an error. Please try again!</p>"; ?>
-        <?php
-        if ($myProfile)
-            echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
-        else
-            echo "<a href = 'like.php'><button type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
-        ?>
+if ($myProfile)
+    echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
+else
+    echo "<a href = 'like.php'><button type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
+?>
         <h3>Personal info</h3>
 
           <div class="form-group">
@@ -65,19 +55,19 @@ if (!$_SESSION['active'])
             <div class="col-lg-8">
               <div class="ui-select">
                 <div id = "gender" class = "form-control"></div>
-                <script>
-                    var option = "<?php echo $users->getGender($userEmail); ?>";
-                    if (option == "f")
-                        $("#gender").text('Female');
-                    else if (option == 'm')
-                        $("#gender").text('Male');
-                    else if (option == 'o')
-                        $("#gender").text('Other');
-                    else if (option == 'a')
-                        $("#gender").text('Did you just assume my gender?');
-                    else if (option == 'p')
-                        $("#gender").text('Person');
-                </script>
+<script>
+var option = "<?php echo $users->getGender($userEmail); ?>";
+if (option == "f")
+    $("#gender").text('Female');
+else if (option == 'm')
+    $("#gender").text('Male');
+else if (option == 'o')
+    $("#gender").text('Other');
+else if (option == 'a')
+    $("#gender").text('Did you just assume my gender?');
+else if (option == 'p')
+    $("#gender").text('Person');
+</script>
                 </select>
               </div>
             </div>
@@ -87,17 +77,17 @@ if (!$_SESSION['active'])
             <div class="col-lg-8">
               <div class="ui-select">
                 <div id = "orientation" class = "form-control"></div>
-                <script>
-                    var option = "<?php echo $users->getOrientation($userEmail); ?>";
-                    if (option == 'h')
-                        $("#orientation").text('Heterosexual');
-                    else if (option == 'x')
-                        $("#orientation").text('Homosexual');
-                    else if (option == 'b')
-                        $("$orientation").text('Bisexual');
-                    else if (option == 'e')
-                        $("#orientation").text('I just want to fuck, give me anything!');
-                </script>
+<script>
+var option = "<?php echo $users->getOrientation($userEmail); ?>";
+if (option == 'h')
+    $("#orientation").text('Heterosexual');
+else if (option == 'x')
+    $("#orientation").text('Homosexual');
+else if (option == 'b')
+    $("$orientation").text('Bisexual');
+else if (option == 'e')
+    $("#orientation").text('I just want to fuck, give me anything!');
+</script>
                 </select>
               </div>
             </div>
@@ -130,10 +120,10 @@ if (!$_SESSION['active'])
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
           </div>
-        <?php
-        if (!$myProfile)
-            echo "<a href = 'block.php'><button type = 'button' class = 'btn btn-default pull-right'>Block the user</button></a>";
-        ?>
+<?php
+if (!$myProfile)
+    echo "<a href = 'block.php'><button type = 'button' class = 'btn btn-default pull-right'>Block the user</button></a>";
+?>
         </form>
       </div>
   </div>

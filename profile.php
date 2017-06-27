@@ -7,10 +7,11 @@ session_start();
 $users = new Users();
 if ($_SESSION['status'] != true)
     header ("Location: index.php");
+$userInfo = $users->getUserById($_SESSION['uid']);
 include 'header.php';
 ?>
 <div class="container">
-    <?php echo "<h1>" . $_SESSION['fname'] . "'s Profile" . "</h1>"; ?>
+    <?php echo "<h1>" . $userInfo[0] . "'s Profile" . "</h1>"; ?>
     <hr>
     <div class="row">
       <!-- left column -->
@@ -25,7 +26,7 @@ include 'header.php';
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
 <?php
-if (!$_SESSION['active'])
+if (!$users->isActive($_SESSION['uid']))
     echo '
         <div class="alert alert-info alert-dismissable">
           <a class="panel-close close" data-dismiss="alert">×</a>
@@ -39,13 +40,13 @@ if (!$_SESSION['active'])
           <div class="form-group required">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-            <input name = "fname" class="form-control" type="text" value="<?php echo $_SESSION['fname']; ?>" required>
+            <input name = "fname" class="form-control" type="text" value="<?php echo $userInfo[0]; ?>" required>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-            <input name = "lname" class="form-control" type="text" value="<?php echo $_SESSION['lname']; ?>" required>
+            <input name = "lname" class="form-control" type="text" value="<?php echo $userInfo[1]; ?>" required>
             </div>
           </div>
           <div class="form-group required">
@@ -57,7 +58,7 @@ if (!$_SESSION['active'])
           <div class="form-group required">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-            <input name = "email" class="form-control" type="text" value="<?php echo $_SESSION['email']; ?>" required>
+            <input name = "email" class="form-control" type="text" value="<?php echo $userInfo[2]; ?>" required>
             </div>
           </div>
           <div class="form-group required">
