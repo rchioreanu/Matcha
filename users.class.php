@@ -265,8 +265,81 @@ class Users
             echo $e->getMessage();
         }
     }
+    protected function checkOrientation($orientation1, $orientation2, $gender1, $gender2)
+    {
+        switch ($orientation1) {
+        case 'h':
+            switch ($gender1) {
+            case 'o':
+            case 'a':
+            case 'p':
+                return TRUE;
+            case 'f':
+                switch ($orientation2) {
+                case 'h':
+                    switch ($gender2) {
+                    case 'm':
+                        return TRUE;
+                    default:
+                        return FALSE;
+                    }
+                default:
+                    return FALSE;
+                }
+            case 'm':
+                switch ($orientation2) {
+                case 'h':
+                    switch ($gender2) {
+                    case 'f':
+                        return TRUE;
+                    default:
+                        return FALSE;
+                    }
+                }
+            default:
+                return FALSE;
+            }
+        case 'x':
+            switch ($gender1) {
+            case 'o':
+            case 'a':
+            case 'p':
+                return TRUE;
+            case 'f':
+                switch ($orientation2) {
+                case 'x':
+                    switch ($gender2) {
+                    case 'f':
+                        return TRUE;
+                    default:
+                        return FALSE;
+                    }
+                default:
+                    return FALSE;
+                }
+            case 'm':
+                switch ($orientation2) {
+                case 'x':
+                    switch ($gender2) {
+                    case 'm':
+                        return TRUE;
+                    default:
+                        return FALSE;
+                    }
+                default:
+                    return FALSE;
+                }
+            default:
+                return FALSE;
+            }
+        default:
+            return TRUE;
+        }
+    }
     public function checkCompatibility($haystack, $needle)
     {
+        if ($haystack == $needle)
+            return FALSE;
         $query = "SELECT * FROM users WHERE id LIKE '$haystack';";
         $query2 = "SELECT * FROM users WHERE id LIKE '$needle';";
         try {
@@ -278,78 +351,11 @@ class Users
                 $orientation2 = $elem['orientation'];
                 $gender2 = $elem['gender'];
             }
-            switch ($orientation1) {
-            case 'h':
-                switch ($gender1) {
-                case 'o':
-                case 'a':
-                case 'p':
-                    return TRUE;
-                case 'f':
-                    switch ($orientation2) {
-                    case 'h':
-                        switch ($gender2) {
-                        case 'm':
-                            return TRUE;
-                        default:
-                            return FALSE;
-                        }
-                    default:
-                        return FALSE;
-                    }
-                case 'm':
-                    switch ($orientation2) {
-                    case 'h':
-                        switch ($gender2) {
-                        case 'f':
-                            return TRUE;
-                        default:
-                            return FALSE;
-                        }
-                    }
-                default:
-                    return FALSE;
-                }
-            case 'x':
-                switch ($gender1) {
-                case 'o':
-                case 'a':
-                case 'p':
-                    return TRUE;
-                case 'f':
-                    switch ($orientation2) {
-                    case 'x':
-                        switch ($gender2) {
-                        case 'f':
-                            return TRUE;
-                        default:
-                            return FALSE;
-                        }
-                    default:
-                        return FALSE;
-                    }
-                case 'm':
-                    switch ($orientation2) {
-                    case 'x':
-                        switch ($gender2) {
-                        case 'm':
-                            return TRUE;
-                        default:
-                            return FALSE;
-                        }
-                    default:
-                        return FALSE;
-                    }
-                default:
-                    return FALSE;
-                }
-            default:
-                return TRUE;
-            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
         }
+        return $this->checkOrientation($orientation1, $orientation2, $gender1, $gender2);
     }
     public function isActive ($uid)
     {
