@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 include 'includes.php';
 include 'header.php';
@@ -15,3 +17,4 @@ if (!$active)
 $rec = new Recommend();
 $rec->suggestUser($_SESSION['uid']);
 ?>
+<script type = "text/javascript" src = "location.js"></script>
