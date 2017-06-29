@@ -1,5 +1,5 @@
 <?php
-require 'users.class.php';
+require 'block.class.php';
 
 class Recommend extends Users
 {
@@ -55,6 +55,7 @@ class Recommend extends Users
                             </div>
                             <div class="modal-footer">
                                 <center>
+                                <a href = "myprofile.php?user=' . $uid . '"<button type = "button" class = "btn btn-default">' . $fname . '\'s profile</button></a>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">I\'ve heard enough about ' . $fname . '</button>
                                 </center>
                             </div>
@@ -66,12 +67,13 @@ class Recommend extends Users
     }
     public function suggestUser($uid)
     {
+        $block = new Block();
         $query = "SELECT * FROM users WHERE 1;";
         try {
             foreach ($this->DB->query($query) as $elem) {
                 $orientation = $elem['orientation'];
                 $gender = $elem['gender'];
-                if ($this->checkCompatibility($uid, $elem['id']))
+                if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']))
                     $this->displayUserProfile($elem['id']);
             }
         }

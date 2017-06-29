@@ -1,10 +1,12 @@
-<?php include 'includes.php'; ?>
+<?php
+include 'includes.php';
+require 'block.class.php';
+session_start();
+?>
 <script src = "image.js"></script>
 <?php
-require 'users.class.php';
-
-session_start();
 $users = new Users();
+$block = new Block();
 if ($_SESSION['status'] != true)
     header ("Location: index.php");
 if (!isset($_GET['user']))
@@ -18,11 +20,19 @@ else
     $myProfile = true;
     $compatible = -1;
 }
+if ($block->checkUser($_SESSION['uid'], $user))
+    header ("Location: index.php");
 if (!$compatible)
     header ("Location: index.php");
 $userEmail = $users->getUserById($user)[2];
 include 'header.php';
 ?>
+<script>
+var myuser = "<?php echo $_SESSION['uid']; ?>";
+var destuser = "<?php echo $_GET['user']; ?>";
+</script>
+<script src = "like.js"></script>
+<script src = "block.js"></script>
 <div class="container">
     <?php echo "<h1>" . $users->getUserById($user)[0] . " " . $users->getUserById($user)[1] . "</h1>"; ?>
     <hr>
@@ -40,7 +50,7 @@ include 'header.php';
 if ($myProfile)
     echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
 else
-    echo "<a href = 'like.php'><button type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
+    echo "<a href = '#'><button id = 'like' type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
 ?>
         <h3>Personal info</h3>
 
@@ -122,7 +132,7 @@ else if (option == 'e')
           </div>
 <?php
 if (!$myProfile)
-    echo "<a href = 'block.php'><button type = 'button' class = 'btn btn-default pull-right'>Block the user</button></a>";
+    echo "<a href = '#'><button id = 'block' type = 'button' class = 'btn btn-default pull-right'>Block the user</button></a>";
 ?>
         </form>
       </div>
