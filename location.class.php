@@ -10,7 +10,8 @@ class Location extends Users
             ON DUPLICATE KEY UPDATE
                 Latitude='$latitude', Longitude='$longitude';";
         try {
-            $this->DB->query($query);
+            $statement = $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOEXception $e) {
             echo $e->getMessage();

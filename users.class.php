@@ -21,7 +21,10 @@ class Users
     {
         $query = "SELECT * FROM `users` WHERE `email` LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem)
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 if ($elem['email'])
                     return true;
         }
@@ -35,9 +38,8 @@ class Users
         $hash = hash('whirlpool', $password);
         $query = "INSERT INTO `users` (`First Name`, `Last Name`, `Birthdate`, `email`, `password`) VALUES('$fname', '$lname', '$bdate', '$email', '$hash');";
         try {
-            $this->DB->query($query);
-            echo $fname .PHP_EOL.$lname.PHP_EOL.$bdate.PHP_EOL.$email.PHP_EOL.$password;
-            echo "OK";
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
             return true;
         }
         catch (PDOException $e) {
@@ -50,7 +52,10 @@ class Users
         $hash = hash('whirlpool', $psw);
         $query = "SELECT * FROM `users` WHERE `email` LIKE '$email' AND `password` LIKE '$hash';";
         try {
-            foreach ($this->DB->query($query) as $elem)
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
             {
                 if ($elem['email']) {
                     return ($elem['active']);
@@ -66,7 +71,8 @@ class Users
     {
         $query = "UPDATE users SET users.active = true WHERE users.email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -76,7 +82,10 @@ class Users
     {
         $query = "SELECT * FROM `users` WHERE `email` LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem)
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return ($elem['complete']);
         }
         catch (PDOException $e) {
@@ -87,7 +96,10 @@ class Users
     {
         $query = "SELECT * FROM `users` WHERE `email` LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem)
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return array ($elem['First Name'], $elem['Last Name']);
         }
         catch (PDOException $e) {
@@ -98,7 +110,8 @@ class Users
     {
         $query = "UPDATE users SET Bio = '$bio' WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -108,9 +121,11 @@ class Users
     {
         $query = "SELECT Bio FROM users WHERE email LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return ($elem['Bio']);
-            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -120,7 +135,8 @@ class Users
     {
         $query = "UPDATE users SET gender = '$gender' WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -130,9 +146,11 @@ class Users
     {
         $query = "SELECT gender FROM users WHERE email LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return ($elem['gender']);
-            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -142,7 +160,8 @@ class Users
     {
         $query = "UPDATE users SET orientation = '$orientation' WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -152,9 +171,11 @@ class Users
     {
         $query = "SELECT orientation FROM users WHERE email LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return ($elem['orientation']);
-            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -164,7 +185,8 @@ class Users
     {
         $query = "UPDATE users SET tags = '$tags' WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -174,9 +196,11 @@ class Users
     {
         $query = "SELECT tags FROM users WHERE email LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return $elem['tags'];
-            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -186,7 +210,8 @@ class Users
     {
         $query = "UPDATE users SET `First Name` = '$fname', `Last Name` = '$lname' WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -196,7 +221,8 @@ class Users
     {
         $query = "UPDATE users SET email  = '$newemail', active = false WHERE email LIKE '$oldemail';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -206,7 +232,8 @@ class Users
     {
         $query = "UPDATE users SET complete = true WHERE email LIKE '$email';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -216,7 +243,10 @@ class Users
     {
         $query = "SELECT * FROM users WHERE email LIKE '$email';";
         try {
-            foreach ($this->DB->query($query) as $elem)
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
                 return $elem['id'];
         }
         catch (PDOException $e) {
@@ -231,7 +261,8 @@ class Users
         $query = "INSERT INTO images (uid, $toChange) VALUES ('$uid', '$photoName') ON DUPLICATE KEY UPDATE
             $toChange = '$photoName';";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();
@@ -241,7 +272,10 @@ class Users
     {
         $query = "SELECT * FROM images WHERE uid LIKE '$uid';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 if ($elem["image_" . $type])
                     return $elem["image_" . $type];
                 else
@@ -257,7 +291,10 @@ class Users
     {
         $query = "SELECT * FROM `users` WHERE id LIKE '$uid';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 return array ($elem['First Name'], $elem['Last Name'], $elem['email']);
             }
         }
@@ -343,11 +380,17 @@ class Users
         $query = "SELECT * FROM users WHERE id LIKE '$haystack';";
         $query2 = "SELECT * FROM users WHERE id LIKE '$needle';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement2 = $this->DB->prepare($query2);
+            $statement->execute();
+            $statement2->execute();
+            $rows = $statement->fetchAll();
+            $rows2 = $statement2->fetchAll();
+            foreach ($rows as $elem) {
                 $orientation1 = $elem['orientation'];
                 $gender1 = $elem['gender'];
             }
-            foreach ($this->DB->query($query2) as $elem) {
+            foreach ($rows2 as $elem) {
                 $orientation2 = $elem['orientation'];
                 $gender2 = $elem['gender'];
             }
@@ -361,7 +404,10 @@ class Users
     {
         $query = "SELECT active FROM users WHERE id LIKE '$uid';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 return $elem['active'];
             }
         }

@@ -7,7 +7,10 @@ class Block extends Users
     {
         $query = "SELECT * FROM block WHERE (blocker LIKE '$blocker' AND blocked LIKE '$blocked') OR (blocker LIKE '$blocked' AND blocked LIKE '$blocker');";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 if ($elem['blocker'])
                     return TRUE;
             }
@@ -22,7 +25,8 @@ class Block extends Users
     {
         $query = "INSERT INTO block (blocker, blocked) VALUES ('$blocker', '$blocked');";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();

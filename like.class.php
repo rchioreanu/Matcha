@@ -7,7 +7,10 @@ class Like extends Users
     {
         $query = "SELECT * FROM likes WHERE liker LIKE '$from' AND liked LIKE '$to';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 if ($elem['liker']){
                     echo 'true';
                     return;
@@ -26,7 +29,8 @@ class Like extends Users
     {
         $query = "INSERT INTO likes(liker, liked) VALUES ('$from', '$to');";
         try {
-            $this->DB->query($query);
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();

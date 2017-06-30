@@ -7,7 +7,10 @@ class Recommend extends Users
     {
         $query = "SELECT * FROM users WHERE id LIKE '$uid';";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 $fname = $elem['First Name'];
                 $lname = $elem['Last Name'];
                 $birthdate = new DateTime($elem['Birthdate']);
@@ -70,7 +73,10 @@ class Recommend extends Users
         $block = new Block();
         $query = "SELECT * FROM users WHERE 1;";
         try {
-            foreach ($this->DB->query($query) as $elem) {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
                 $orientation = $elem['orientation'];
                 $gender = $elem['gender'];
                 if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']))
