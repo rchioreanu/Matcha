@@ -26,6 +26,18 @@ $(document).ready(function() {
                 console.log(data);
                 $("#like").css('display', 'none');
             }
-        })
-    })
+        });
+        $.ajax({
+            type: 'POST',
+            url: 'notifications.php',
+            data: {
+                user: myuser,
+                destuser: destuser,
+                purpose: 'like'
+            },
+            success: function(res) {
+                console.log(res);
+            }
+        });
+    });
 });

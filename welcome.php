@@ -3,8 +3,7 @@
 <?php
 include 'includes.php';
 include 'header.php';
-require 'recommendation.class.php';
-
+include 'recommendation.class.php';
 session_start();
 $users = new Users();
 $active = $users->checkProfile($_SESSION['email']);

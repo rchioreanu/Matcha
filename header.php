@@ -1,4 +1,5 @@
 <?php
+require_once 'includes.php';
 session_start();
 if (!$_SESSION['status'])
     header("Location: index.php");
@@ -23,9 +24,18 @@ if (!$_SESSION['status'])
                     <li><a href="matches.php">My matches</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                     <li class="dropdown">
+                          <a href="#" id = "notificationTab" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications (0) <span class="caret"></span></a>
+                          <ul class="dropdown-menu" id = "notifications">
+                          </ul>
+                        </li>
                     <li><a href="logout.php">Log out</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
+    <script>
+    var user = "<?php echo $_SESSION['uid']; ?>";
+    </script>
+    <script src = "notifications.js" type = "text/javascript"></script>
 </html>
