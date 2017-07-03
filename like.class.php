@@ -1,5 +1,5 @@
 <?php
-require 'users.class.php';
+require_once 'users.class.php';
 
 class Like extends Users
 {
@@ -31,6 +31,21 @@ class Like extends Users
         try {
             $statement = $this->DB->prepare($query);
             $statement->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function getLikes ($for)
+    {
+        $query = "SELECT COUNT(liked) FROM likes WHERE liked LIKE '$for';";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
+                return $elem['COUNT(liked)'];
+            }
         }
         catch (PDOException $e) {
             echo $e->getMessage();

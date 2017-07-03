@@ -3,7 +3,7 @@ require 'block.class.php';
 
 class Recommend extends Users
 {
-    private function displayUserProfile($uid)
+    private function displayUserProfile($uid, $matched)
     {
         $query = "SELECT * FROM users WHERE id LIKE '$uid';";
         try {
@@ -60,7 +60,10 @@ class Recommend extends Users
                                 <center>
                                 <a href = "myprofile.php?user=' . $uid . '"<button type = "button" class = "btn btn-default">' . $fname . '\'s profile</button></a>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">I\'ve heard enough about ' . $fname . '</button>
-                                </center>
+                                ';
+                                if ($matched === TRUE)
+                                    echo '<button type = "button" class = "btn btn-default">Chat with ' . $fname;
+                                echo '</center>
                             </div>
                         </div>
                     </div>
@@ -79,8 +82,44 @@ class Recommend extends Users
             foreach ($rows as $elem) {
                 $orientation = $elem['orientation'];
                 $gender = $elem['gender'];
-                if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']))
-                    $this->displayUserProfile($elem['id']);
+                if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']) && !$this->match($uid, $elem['id']))
+                    $this->displayUserProfile($elem['id'], FALSE);
+            }
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    private function match ($user1, $user2)
+    {
+        $query = "SELECT COUNT(*) FROM likes WHERE (liker LIKE '$user1' AND liked LIKE '$user2') OR (liker LIKE '$user2' AND liked LIKE '$user1');";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
+                if ($elem['COUNT(*)'] == 2)
+                    return TRUE;
+                else
+                    return FALSE;
+            }
+            return FALSE;
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return FALSE;
+    }
+    public function getMatches($uid)
+    {
+        $query = "SELECT * FROM users WHERE 1;";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem) {
+                if ($this->match($uid, $elem['id']))
+                    $this->displayUserProfile($elem['id'], TRUE);
             }
         }
         catch (PDOException $e) {

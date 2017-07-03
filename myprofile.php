@@ -1,12 +1,14 @@
 <?php
 include 'includes.php';
 require 'block.class.php';
+include 'like.class.php';
 session_start();
 ?>
 <script src = "image.js"></script>
 <?php
 $users = new Users();
 $block = new Block();
+$likes = new Like();
 if ($_SESSION['status'] != true)
     header ("Location: index.php");
 if (!isset($_GET['user']))
@@ -106,6 +108,11 @@ else if (option == 'e')
             <label class="col-md-3 control-label">Interests:</label>
             <div class="col-md-8">
             <div class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $users->getTags($userEmail); ?></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">People who think this is hot:</label>
+            <div class="col-md-8">
+            <div id = "likenr" class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $likes->getLikes($user); ?></div>
           </div>
           <div class="col-md-3">
             <div class="text-center">
