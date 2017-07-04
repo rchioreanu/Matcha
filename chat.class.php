@@ -27,16 +27,14 @@ class Chat extends Users
     }
     public function getChat($from, $to)
     {
-//        $query = "SELECT * FROM chat WHERE (`chat_1` LIKE '$from' AND `chat_2` LIKE '$to') OR (`chat_1` LIKE '$to' AND `chat_2 LIKE '$from');";
-        $query = "SELECT * FROM chat";
+        $query = "SELECT * FROM chat WHERE (`chat_1` LIKE '$from' AND `chat_2` LIKE '$to') OR (`chat_1` LIKE '$to' AND `chat_2` LIKE '$from');";
+//        $query = "SELECT * FROM chat";
         try {
             $statement = $this->DB->prepare($query);
             $statement->execute();
             $rows = $statement->fetchAll();
             foreach ($rows as $elem)
                 return $elem['log'];
-//            echo base64_decode($rows[0]['log']);
-            //return FALSE;
         }
         catch (PDOException $e) {
             echo $e->getMessage();
