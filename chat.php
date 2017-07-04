@@ -24,15 +24,7 @@ $user = $users->getUserById($_POST['to'])[0] . " " . $users->getUserById($_POST[
     </div>
 
     <div id="chatbox">
-<?php
-if(file_exists("log.html") && filesize("log.html") > 0){
-    $handle = fopen("log.html", "r");
-    $contents = fread($handle, filesize("log.html"));
-    fclose($handle);
-    echo $contents;
-}
-?>
-</div>
+    </div>
     <form name="message" action="">
         <input name="usermsg" type="text" id="usermsg" size="63" />
         <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
@@ -57,7 +49,7 @@ function loadLog() {
         }
     });
 }
-setInterval(loadLog, 500);
+setInterval(loadLog, 1000);
 $(document).ready(function(){
     $("#submitmsg").click(function() {
         var clientmsg = $("#usermsg").val();
