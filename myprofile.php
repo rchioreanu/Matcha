@@ -2,6 +2,7 @@
 include 'includes.php';
 require 'block.class.php';
 include 'like.class.php';
+require_once 'recommendation.class.php';
 session_start();
 ?>
 <script src = "image.js"></script>
@@ -9,6 +10,7 @@ session_start();
 $users = new Users();
 $block = new Block();
 $likes = new Like();
+$rec = new Recommend();
 if ($_SESSION['status'] != true)
     header ("Location: index.php");
 if (!isset($_GET['user']))
@@ -27,6 +29,7 @@ if ($block->checkUser($_SESSION['uid'], $user))
 if (!$compatible)
     header ("Location: index.php");
 $userEmail = $users->getUserById($user)[2];
+$match = !$myProfile ? $rec->match($user, $_SESSION['uid']) : FALSE;
 include 'header.php';
 ?>
 <script>
@@ -53,7 +56,35 @@ if ($myProfile)
     echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
 else
     echo "<a href = '#'><button id = 'like' type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
+if ($match)
+    echo "<button id = 'match' type = 'button' class = 'btn btn-default pull-right'>Chat</button>";
 ?>
+<script>
+function post(path, params, method) {
+    method = method || "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+         }
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+$("#match").click(function() {
+    post("chat.php", {
+        from: myuser,
+        to: destuser
+    });
+});
+</script>
         <h3>Personal info</h3>
 
           <div class="form-group">

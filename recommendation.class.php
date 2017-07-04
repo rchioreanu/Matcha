@@ -1,5 +1,5 @@
 <?php
-require 'block.class.php';
+require_once 'block.class.php';
 
 class Recommend extends Users
 {
@@ -90,7 +90,7 @@ class Recommend extends Users
             echo $e->getMessage();
         }
     }
-    private function match ($user1, $user2)
+    public function match ($user1, $user2)
     {
         $query = "SELECT COUNT(*) FROM likes WHERE (liker LIKE '$user1' AND liked LIKE '$user2') OR (liker LIKE '$user2' AND liked LIKE '$user1');";
         try {
