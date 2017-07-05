@@ -43,6 +43,7 @@ var destuser = "<?php echo $_GET['user']; ?>";
 if ($compatible && !$match && !$myProfile)
     echo "<script src = 'watch.js' type = 'text/javascript'></script>";
 ?>
+<script src = "stalk.js"></script>
 <div class="container">
     <?php echo "<h1>" . $users->getUserById($user)[0] . " " . $users->getUserById($user)[1] . "</h1>"; ?>
     <hr>

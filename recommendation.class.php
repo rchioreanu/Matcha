@@ -3,7 +3,7 @@ require_once 'block.class.php';
 
 class Recommend extends Users
 {
-    private function displayUserProfile($uid, $matched)
+    protected function displayUserProfile($uid, $matched)
     {
         $query = "SELECT * FROM users WHERE id LIKE '$uid';";
         try {

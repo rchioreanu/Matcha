@@ -22,6 +22,8 @@ if (!$_SESSION['status'])
                     <li><a href="welcome.php">Home</a></li>
                     <li><a href="myprofile.php?user=<?php echo $_SESSION['uid']; ?>">My profile</a></li>
                     <li><a href="matches.php">My matches</a></li>
+                    <li><a href="stalkers.php">My stalkers</a></li>
+                    <li><a href="likers.php">My admirers</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">

@@ -31,5 +31,6 @@ else if ($_GET['login'] == 'false')
             <input id = "button" type = "submit" action = "submit" value = "Log in" class = "login">
         </form>
         <a href = "signup.php"><h6 class = "center">Sign up here! It is awesome!</h></a>
+        <a href = "forgot.php"><h6 class = "center">Forgot Password</h></a>
     </body>
 </html>

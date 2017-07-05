@@ -415,5 +415,16 @@ class Users
             echo $e->getMessage();
         }
     }
+    public function resetPassword($email, $newpasswd)
+    {
+        $query = "UPDATE users SET password='$newpasswd' WHERE email LIKE '$email';";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 ?>
