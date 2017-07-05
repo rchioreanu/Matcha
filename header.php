@@ -24,6 +24,7 @@ if (!$_SESSION['status'])
                     <li><a href="matches.php">My matches</a></li>
                     <li><a href="stalkers.php">My stalkers</a></li>
                     <li><a href="likers.php">My admirers</a></li>
+                    <li><a href="search.php">Search</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">
