@@ -11,7 +11,7 @@ class Like extends Users
             $statement->execute();
             $rows = $statement->fetchAll();
             foreach ($rows as $elem) {
-                if ($elem['liker']){
+                if ($elem['liker']) {
                     echo 'true';
                     return;
                 }
@@ -46,6 +46,17 @@ class Like extends Users
             foreach ($rows as $elem) {
                 return $elem['COUNT(liked)'];
             }
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function removeLike ($from, $to)
+    {
+        $query = "DELETE FROM likes WHERE liker LIKE '$from' AND liked LIKE '$to';";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
         }
         catch (PDOException $e) {
             echo $e->getMessage();

@@ -1,11 +1,12 @@
 <?php
-require_once 'recommendation.class.php';
+require_once 'users.class.php';
 
 class Notifications extends Users
 {
     public function addNotification($from, $to, $type)
     {
-        $query = "INSERT INTO notifications(notifications_from, notifications_to, type)
+        $query = "DELETE FROM notifications WHERE notifications_from LIKE '$from' AND notifications_to LIKE '$to' AND type LIKE '$type';
+        INSERT INTO notifications(notifications_from, notifications_to, type)
             VALUES('$from', '$to', '$type');";
         try {
             $statement = $this->DB->prepare($query);

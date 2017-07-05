@@ -30,6 +30,7 @@ if (!$compatible)
     header ("Location: index.php");
 $userEmail = $users->getUserById($user)[2];
 $match = !$myProfile ? $rec->match($user, $_SESSION['uid']) : FALSE;
+
 include 'header.php';
 ?>
 <script>
@@ -38,6 +39,10 @@ var destuser = "<?php echo $_GET['user']; ?>";
 </script>
 <script src = "like.js"></script>
 <script src = "block.js"></script>
+<?php
+if ($compatible && !$match && !$myProfile)
+    echo "<script src = 'watch.js' type = 'text/javascript'></script>";
+?>
 <div class="container">
     <?php echo "<h1>" . $users->getUserById($user)[0] . " " . $users->getUserById($user)[1] . "</h1>"; ?>
     <hr>
@@ -56,6 +61,8 @@ if ($myProfile)
     echo "<a href = 'profile.php'><button type = 'button' class = 'btn btn-default pull-right'>Edit my profile</button></a>";
 else
     echo "<a href = '#'><button id = 'like' type = 'button' class = 'btn btn-default pull-right'>Damn, son</button></a>";
+if ($match)
+    echo "<a href = '#'><button id = 'unlike' type = 'button' class = 'btn btn-default pull-right'>HATE YOU!</button></a>";
 if ($match)
     echo "<button id = 'match' type = 'button' class = 'btn btn-default pull-right'>Chat</button>";
 ?>

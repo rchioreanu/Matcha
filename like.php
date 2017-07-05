@@ -13,4 +13,8 @@ else if ($_GET['purpose'] == 'like')
 {
     echo $like->addLike($myuser, $destuser);
 }
+else if ($_GET['purpose'] == 'unlike')
+{
+    echo $like->removeLike($myuser, $destuser);
+}
 ?>

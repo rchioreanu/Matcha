@@ -61,8 +61,6 @@ class Recommend extends Users
                                 <a href = "myprofile.php?user=' . $uid . '"<button type = "button" class = "btn btn-default">' . $fname . '\'s profile</button></a>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">I\'ve heard enough about ' . $fname . '</button>
                                 ';
-                                if ($matched === TRUE)
-                                    echo '<button type = "button" class = "btn btn-default">Chat with ' . $fname;
                                 echo '</center>
                             </div>
                         </div>

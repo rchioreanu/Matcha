@@ -6,8 +6,6 @@ $notifications = new Notifications();
 $users = new Users();
 if ($_POST['purpose'] == 'like')
 {
-    echo $_POST['user'];
-    echo $_POST['destuser'];
     $notifications->addNotification($_POST['user'], $_POST['destuser'], 'liked');
 }
 else if ($_POST['purpose'] == 'check')
@@ -21,5 +19,9 @@ else if ($_POST['purpose'] == 'check')
 else if ($_POST['purpose'] == 'see')
 {
     $notifications->seeNotification($_SESSION['uid'], $_POST['type'], $_POST['notification_from']);
+}
+else if ($_POST['purpose'] == 'unlike')
+{
+    $notifications->addNotification($_SESSION['uid'], $_POST['destuser'], 'unliked');
 }
 ?>

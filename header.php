@@ -38,4 +38,5 @@ if (!$_SESSION['status'])
     var user = "<?php echo $_SESSION['uid']; ?>";
     </script>
     <script src = "notifications.js" type = "text/javascript"></script>
+    <script src = "chat.js" type = "text/javascript"></script>
 </html>

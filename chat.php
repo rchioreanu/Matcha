@@ -49,6 +49,16 @@ function loadLog() {
         }
     });
 }
+function updateChat() {
+    $.ajax({
+        url: 'updatechat.php',
+        cache: false,
+        data: {
+            to: "<?php echo $_POST['to']; ?>"
+        }
+    });
+}
+setInterval(updateChat, 1000);
 setInterval(loadLog, 1000);
 $(document).ready(function(){
     $("#submitmsg").click(function() {
