@@ -147,7 +147,7 @@ else if (option == 'e')
             <label class="col-md-3 control-label">Interests:</label>
             <div class="col-md-8">
             <div class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $users->getTags($userEmail); ?></div>
-          </div>
+          <!--</div>-->
           <div class="form-group">
             <label class="col-md-3 control-label">People who think this is hot:</label>
             <div class="col-md-8">

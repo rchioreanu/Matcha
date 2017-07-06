@@ -29,6 +29,14 @@ body {
     padding-top: 50px;
 }
 
-.fame {
-    padding-top: 100px;
+.navbar {
+    top: 0;
 }
+
+.space-top {
+    border-style: rounded;
+}
+ #search_interests {
+     width: 100px;
+     height: 100px;
+ }

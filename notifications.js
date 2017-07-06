@@ -29,7 +29,6 @@ function checkNotifications() {
                             notification_from: parsed[i]['notifications_from']
                         },
                         success: function(res) {
-                            console.log(res);
                         }
                     });
                     $("#" + parsed[i]['notifications_from'] + "_" + parsed[i]['type'] + 'a').attr('href', 'myprofile.php?user=' + parsed[i]['notifications_from']);

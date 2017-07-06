@@ -3,7 +3,6 @@ function checkChat() {
         method: 'POST',
         url: 'chatnotification.php',
         success: function(res) {
-            console.log(res);
         }
     });
 }
