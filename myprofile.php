@@ -151,7 +151,7 @@ else if (option == 'e')
           <div class="form-group">
             <label class="col-md-3 control-label">People who think this is hot:</label>
             <div class="col-md-8">
-            <div id = "likenr" class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $likes->getLikes($user); ?></div>
+            <div id = "likenr" class = "form-control bootstrap-tagsinput" data-role = "tagsinput"><?php echo $likes->getLikes($user); ?></div></div>
           </div>
           <div class="col-md-3">
             <div class="text-center">

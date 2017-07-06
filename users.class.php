@@ -426,5 +426,23 @@ class Users
             echo $e->getMessage();
         }
     }
+    public function getAge($uid)
+    {
+        $query = "SELECT * FROM users WHERE id LIKE '$uid';";
+        try {
+            $statement = $this->DB->prepare($query);
+            $statement->execute();
+            $rows = $statement->fetchAll();
+            foreach ($rows as $elem)
+            {
+                $birthdate = new DateTime($elem['Birthdate']);
+                $today = new DateTime('today');
+                return $birthdate->diff($today)->y;
+            }
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 ?>

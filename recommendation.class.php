@@ -77,12 +77,15 @@ class Recommend extends Users
             $statement = $this->DB->prepare($query);
             $statement->execute();
             $rows = $statement->fetchAll();
+            $users = array();
             foreach ($rows as $elem) {
                 $orientation = $elem['orientation'];
                 $gender = $elem['gender'];
-                if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']) && !$this->match($uid, $elem['id']))
-                    $this->displayUserProfile($elem['id'], FALSE);
+                if ($this->checkCompatibility($uid, $elem['id']) && !$block->checkUser($uid, $elem['id']) && !$this->match($uid, $elem['id'])) {
+                    array_push($users, $elem['id']);
+                }
             }
+            return $users;
         }
         catch (PDOException $e) {
             echo $e->getMessage();
